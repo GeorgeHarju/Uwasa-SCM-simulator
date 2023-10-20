@@ -10,11 +10,18 @@ function Warehouse() {
         max_hr_cap: '',
         sla: ''
     });
+    const [tiedot, setTiedot] = useState([]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setWarehouseData({ ...warehouseData, [name]: value });
     };
+
+    const handleTiedot = (e) => {
+        setTiedot(e.warehouses);
+        console.log('tiedot on', tiedot);
+        //console.log('length on', tiedot.length);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,6 +58,8 @@ function Warehouse() {
         .then((data) => {
             console.log(typeof(data));
             console.log(data);
+            // tallennetaan tiedot tilamuuttujaan
+            handleTiedot(data);
         })
     }
 
@@ -69,8 +78,29 @@ function Warehouse() {
                 <input type="submit" value="Add warehouse" />
             </form>
             <button onClick={handleGet}>GET</button>
+            {tiedot.length > 0 &&
+            <Tiedot warehouses={tiedot} />}
         </div>
     );
 }
 
-export default Warehouse
+
+// TODO: pitäisi saada renderöitymään vain kun tiedot muuttuvat
+// ja vasta kun halutaan (eli painetaan nappia tmv.)
+
+// erillinen komponentti, joka näyttää tiedot.
+// eri riveillä päästään käsiksi objektien attribuutteihin
+function Tiedot(props) {
+    console.log('props on', props);
+    return (
+        <div>
+            <p>{JSON.stringify(props)}</p>
+            <p>{JSON.stringify(props.warehouses)}</p>
+            <p>{JSON.stringify(props.warehouses[0])}</p>
+            <p>{JSON.stringify(props.warehouses[0].name)}</p>
+            <p>{props.warehouses[0].name}</p>
+        </div>
+    )
+}
+
+export default Warehouse;
