@@ -9,25 +9,30 @@ app.use(cors());
 
 const warehouses = [];
 
-// POST request, jossa lähetetty data tallennetaan warehouse objektiin
+// POST request, jossa lähetetty data tallennetaan newWarehouse objektiin
 app.post('/', jsonParser, (req, res) => {
     try {
         console.log('handling POST request');
-        //id, name, latitde, longitude, processing_cost, max_hr_cap, sla
-        /*
-        const newWarehouse = {
-            name: req.body.name,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-        }
-        */
         const newWarehouse = req.body;
         console.log(newWarehouse);
         console.log(typeof(newWarehouse));
+        // lisätään newWarehouse warehouses-taulukkoon
         warehouses.push(newWarehouse);
         console.log(warehouses.length);
 
         res.json({ message: 'Added warehouse:', newWarehouse });
+    }
+    catch (error) {
+        console.error(error);
+        res.json({'Error:': error});
+    }
+})
+
+// GET request, palautetaan warehouses-taulukko responsena
+app.get('/', (req, res) => {
+    try {
+        console.log('handling GET request');
+        res.json({warehouses});
     }
     catch (error) {
         console.error(error);
