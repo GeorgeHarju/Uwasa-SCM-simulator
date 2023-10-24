@@ -1,0 +1,111 @@
+/*CSS tyylittelyä koko projektille*/
+
+/*Teksikenttien tyylittelyä*/
+.id_style {
+    position: relative;
+    transform: translateY(0%);
+    border: 2px solid black;
+}
+
+.name_style
+{
+    position: relative;
+    transform: translateY(0%);
+    border: 2px solid black;
+}
+.latitude_style
+{
+    position: relative;
+    transform: translateY(0%);
+    border: 2px solid black;
+}
+.longitude_style
+{
+    position: relative;
+    top:50%;
+    border: 2px solid black;
+}
+.processing_cost_style
+{
+    position: relative;
+
+    border: 2px solid black;
+}
+.max_hr_cap_style
+{
+    position: relative;
+
+    border: 2px solid black;
+}
+.sla_style
+{
+    position: relative;
+
+    border: 2px solid black;
+}
+
+.button
+{
+    position: relative;
+
+}
+
+/*Välilehtien tyylittely ja toiminta kun aktivoitu*/
+
+/*
+.active-tabs:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+*/
+
+.container {
+    background: rgb(223, 228, 220);
+    border: 20px solid rgb(169, 172, 168);
+    margin: auto;
+    width: 1200px;
+    height: 800px;
+}
+
+.tabs {
+    width: 150px;
+    height: 50px;
+    border: 2px solid black;
+}
+
+.active-tabs {
+    background-image:linear-gradient(to right, rgb(223, 228, 220), green);
+    width: 150px;
+    border: 2px solid black;
+}
+
+.content-container {
+    position: relative;
+    left: 170px;
+    top: -300px;
+}
+
+.content {
+    display: none;
+}
+
+.active-content {
+    display: block;
+    background-color: white;
+    padding: 10px;
+}
+
+h2 {
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+h3 {
+    width: 150px;
+    height: 50;
+
+}
