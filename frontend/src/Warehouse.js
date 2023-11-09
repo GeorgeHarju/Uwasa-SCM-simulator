@@ -63,8 +63,26 @@ function Warehouse() {
         })
     }
 
+    const handleDelete = () => {
+        console.log('lets delete');
+        const jsonData = JSON.stringify(warehouseData);
+        console.log(jsonData);
+        fetch('http://localhost:3001/', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+        })
+    }
+
     // formin avulla lähetetään post request eli lisätään uusi warehouse
-    // napin avulla lähetetään get request eli haetaan kaikki warehouset
+    // GET napin avulla lähetetään get request eli haetaan kaikki warehouset
+    // DELETE napin avulla lähetetään delete request jossa poistetaan id:tä vastaava warehouse
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -78,6 +96,7 @@ function Warehouse() {
                 <input type="submit" value="Add warehouse" />
             </form>
             <button onClick={handleGet}>GET</button>
+            <button onClick={handleDelete}>DELETE</button>
             {tiedot.length > 0 &&
             <Tiedot warehouses={tiedot} />}
         </div>

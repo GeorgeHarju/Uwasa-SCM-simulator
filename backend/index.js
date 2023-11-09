@@ -40,6 +40,31 @@ app.get('/', (req, res) => {
     }
 })
 
+// DELETE request, poistaa annettua id:tä vastaavan warehousen taulukosta
+app.delete('/', jsonParser, (req, res) => {
+    try {
+        console.log('handling DELETE request');
+        const deleteId = req.body.id;
+        console.log('deleteId:', deleteId);
+        var jsonResponse = {message: 'Could not delete warehouse'};
+        warehouses.forEach((warehouse) => {
+            if (warehouse.id === deleteId) {
+                console.log(warehouses.length);
+                // poistetaan taulukosta requestia vastaava warehouse
+                warehouses.splice(warehouses.indexOf(warehouse), 1);
+                console.log(warehouses.length);
+                //res.json({ message: 'Deleted warehouse', warehouse });
+                jsonResponse = {message: 'Deleted warehouse', warehouse};
+            }
+        })
+        res.json(jsonResponse);
+    }
+    catch (error) {
+        console.error(error);
+        res.json({'Error:': error});
+    }
+})
+
 const port = 3001;
 app.listen(port, () => {
     console.log('Server is now running');
