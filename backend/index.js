@@ -54,7 +54,31 @@ app.delete('/', jsonParser, (req, res) => {
                 warehouses.splice(warehouses.indexOf(warehouse), 1);
                 console.log(warehouses.length);
                 //res.json({ message: 'Deleted warehouse', warehouse });
+                console.log('warehouse deleted');
                 jsonResponse = {message: 'Deleted warehouse', warehouse};
+            }
+        })
+        res.json(jsonResponse);
+    }
+    catch (error) {
+        console.error(error);
+        res.json({'Error:': error});
+    }
+})
+
+// PUT request, muokkaa/päivittää tiedot annetun id:n warehouseen
+app.put('/', jsonParser, (req, res) => {
+    try {
+        console.log('handling PUT request');
+        const putId = req.body.id;
+        console.log('putId:', putId);
+        var jsonResponse = {message: 'Could not modify warehouse'};
+        warehouses.forEach((warehouse) => {
+            if (warehouse.id === putId) {
+                // päivitetään taulukon warehouse vastaamaan requestia
+                warehouses[warehouses.indexOf(warehouse)] = req.body;
+                console.log('warehouse modified');
+                jsonResponse = { message: 'Modified warehouse', old: warehouse, new: req.body };
             }
         })
         res.json(jsonResponse);
