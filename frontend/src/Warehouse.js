@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './Warehouse.css';
 
 function Warehouse() {
     const [warehouseData, setWarehouseData] = useState({
@@ -126,6 +127,7 @@ function Warehouse() {
 
 // erillinen komponentti, joka näyttää tiedot.
 // eri riveillä päästään käsiksi objektien attribuutteihin
+// taulukossa näytetään tiedot, jokaiselle warehouselle rivi
 function Tiedot(props) {
     console.log('props on', props);
     return (
@@ -135,6 +137,23 @@ function Tiedot(props) {
             <p>{JSON.stringify(props.warehouses[0])}</p>
             <p>{JSON.stringify(props.warehouses[0].name)}</p>
             <p>{props.warehouses[0].name}</p>
+            <table>
+                <thead><tr><th>ID</th><th>Name</th><th>Latitude</th><th>Longitude</th>
+                <th>Processing cost</th><th>Max hr cap</th><th>SLA</th></tr></thead>
+                <tbody>
+                    {props.warehouses.map((warehouse) => (
+                        <tr key={warehouse.id}>
+                            <td>{warehouse.id}</td>
+                            <td>{warehouse.name}</td>
+                            <td>{warehouse.latitude}</td>
+                            <td>{warehouse.longitude}</td>
+                            <td>{warehouse.processing_cost}</td>
+                            <td>{warehouse.max_hr_cap}</td>
+                            <td>{warehouse.sla}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }

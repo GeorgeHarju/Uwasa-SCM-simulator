@@ -1,0 +1,36 @@
+/*html, body, div {
+    height: 100%;
+}*/
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
+    /*background-color: rgb(111, 178, 110);
+    color: black;*/
+}
+
+table {
+    border: 3px solid;
+    background-color: white;
+    /*height: 50%;*/
+}
+
+/*thead, th {
+    height: 20%;
+}*/
+
+tr:hover {
+    background-color: darkgray;
+}
+
+/*td:hover {
+    background-color: gray;
+}*/
+
+/*
+    background: rgb(223, 228, 220);
+    green: rgb(0, 128, 0);
+    border: rgb(169, 172, 168);
+*/
