@@ -123,25 +123,48 @@ function Warehouse() {
 
 
 // TODO: pitäisi saada renderöitymään vain kun tiedot muuttuvat
-// ja vasta kun halutaan (eli painetaan nappia tmv.)
+// ja vasta kun halutaan (eli painetaan search/get nappia tmv.)
 
 // erillinen komponentti, joka näyttää tiedot.
-// eri riveillä päästään käsiksi objektien attribuutteihin
 // taulukossa näytetään tiedot, jokaiselle warehouselle rivi
+// taulukko jaettu 5:n warehousen kokoisiin sivuihin
+// select valikolla valitaan sivu, jonka mukaan warehouse taulukko
+// katkaistaan ja näytetään sopivasta kohtaa (voisi tehdä myös napeilla)
 function Tiedot(props) {
     console.log('props on', props);
+
+    const [page, setPage] = useState(1);
+    //const [wList, setWList] = useState([]);
+    //const [pageList, setPageList] = useState([]);
+    //const pageList = [];
+    const handlePageList = () => {
+        const wList = [];
+        const pageList = [];
+        // käy läpi taulukon indeksit ja tekee niistä taulukon
+        const iterator = props.warehouses.keys();
+        for (const key of iterator) {
+            wList.push(key);
+        }
+        // tehdään indekseistä sivutaulukko, joka voidaan mapata select napeiksi
+        wList
+        .filter((number) => number % 5 === 0)
+        .forEach((number) => pageList.push(number / 5 + 1));
+        console.log('wlist on', wList);
+        console.log('pagelist on', pageList);
+        console.log('page on', page);
+        return pageList;
+    }
+
     return (
         <div>
-            <p>{JSON.stringify(props)}</p>
-            <p>{JSON.stringify(props.warehouses)}</p>
             <p>{JSON.stringify(props.warehouses[0])}</p>
             <p>{JSON.stringify(props.warehouses[0].name)}</p>
-            <p>{props.warehouses[0].name}</p>
             <table>
                 <thead><tr><th>ID</th><th>Name</th><th>Latitude</th><th>Longitude</th>
                 <th>Processing cost</th><th>Max hr cap</th><th>SLA</th></tr></thead>
                 <tbody>
-                    {props.warehouses.map((warehouse) => (
+                    {props.warehouses.slice(page*5-5, page*5)
+                    .map((warehouse) => (
                         <tr key={warehouse.id}>
                             <td>{warehouse.id}</td>
                             <td>{warehouse.name}</td>
@@ -154,6 +177,11 @@ function Tiedot(props) {
                     ))}
                 </tbody>
             </table>
+            <select onChange={(e) => setPage(e.target.value)}>
+                {handlePageList().map((number) => (
+                    <option key={number} value={number}>page {number}</option>
+                ))}
+            </select>
         </div>
     )
 }
