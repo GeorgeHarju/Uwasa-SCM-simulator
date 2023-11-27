@@ -78,11 +78,11 @@ function Warehouse() {
         .catch((error) => console.error('Error:', error));
     }
 
-    const handlePut = () => {
+    const handlePut = async (row) => {
         console.log('lets put/edit');
-        const jsonData = JSON.stringify(warehouseFormData);
+        const jsonData = JSON.stringify(row);
         console.log(jsonData);
-        fetch('http://localhost:3001/', {
+        await fetch('http://localhost:3001/', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -169,8 +169,8 @@ function Warehouse() {
             <button onClick={handleDelete}>DELETE</button>
             <button onClick={handlePut}>PUT</button>
             <div style={{ margin: '5%', }}>
-                {warehouseTiedot.length > 0 &&
-                <WarehouseTable warehouses={warehouseTiedot} />}
+                {<WarehouseTable warehouses={warehouseTiedot} getData={handleGet} editData={handlePut} />}
+                {<WarehouseTable warehouses={warehouseTiedot} getData={handleGet} editData={handlePut} />}
             </div>
         </div>
     );

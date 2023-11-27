@@ -8,22 +8,36 @@ function WarehouseTable(props) {
     //console.log('props on', props);
     // Mapataan warehouset riveille
     const rows: GridRowsProp = props.warehouses.map((warehouse) => (
-        { id: warehouse.id, col1: warehouse.id, col2: warehouse.name, col3: warehouse.latitude,
-            col4: warehouse.longitude, col5: warehouse.processing_cost, col6: warehouse.max_hr_cap, col7: warehouse.sla }
+        { id: warehouse.id, name: warehouse.name, latitude: warehouse.latitude,
+            longitude: warehouse.longitude, processing_cost: warehouse.processing_cost,
+            max_hr_cap: warehouse.max_hr_cap, sla: warehouse.sla }
     ));
-    //console.log(rows);
+    
     const columns: GridColDef = [
-        { field: 'col1', headerName: 'ID', width: 150 },
-        { field: 'col2', headerName: 'Name', width: 150 },
-        { field: 'col3', headerName: 'Latitude', width: 150 },
-        { field: 'col4', headerName: 'Longitude', width: 150 },
-        { field: 'col5', headerName: 'Processing cost', width: 150 },
-        { field: 'col6', headerName: 'Max hr cap', width: 150 },
-        { field: 'col7', headerName: 'SLA', width: 150 },
+        { field: 'id', headerName: 'ID', width: 150 },
+        { field: 'name', headerName: 'Name', editable: true, width: 150 },
+        { field: 'latitude', headerName: 'Latitude', editable: true, width: 150 },
+        { field: 'longitude', headerName: 'Longitude', editable: true, width: 150 },
+        { field: 'processing_cost', headerName: 'Processing cost', editable: true, width: 150 },
+        { field: 'max_hr_cap', headerName: 'Max hr cap', editable: true, width: 150 },
+        { field: 'sla', headerName: 'SLA', editable: true, width: 150 },
     ];
+
+    const handleUpdate = async (updatedRow, originalRow) => {
+        console.log('starting update', updatedRow, originalRow);
+        console.log('editData');
+        await props.editData(updatedRow);
+        console.log('getData');
+        props.getData();
+    }
+
     return (
         <div>
-            <DataGrid rows={rows} columns={columns} />
+            <DataGrid rows={rows} columns={columns}
+            editMode="row"
+            processRowUpdate={(updatedRow, originalRow) => handleUpdate(updatedRow, originalRow)}
+            onProcessRowUpdateError={(error) => console.log(error)}
+            />
         </div>
     )
 }
