@@ -25,13 +25,10 @@ function Warehouse() {
         //console.log('length on', warehouseTiedot.length);
     }
 
-    const handleSubmit = (e) => {
-        //e.preventDefault();
-        const jsonData = JSON.stringify(warehouseFormData);
-        console.log(warehouseFormData);
+    const handlePost = async (row) => {
+        const jsonData = JSON.stringify(row);
         console.log(jsonData);
-
-        fetch('http://localhost:3001/', {
+        await fetch('http://localhost:3001/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -104,7 +101,7 @@ function Warehouse() {
     const onClickFunction = () => {
         switch (nappi) {
             case 'add':
-                handleSubmit();
+                handlePost();
                 break;
             case 'edit':
                 handlePut();
@@ -132,7 +129,7 @@ function Warehouse() {
     // PUT napin avulla lähetetään put request jolla muokataan id:tä vastaavaa warehousea
     return (
         <div>
-            <form style={{margin:'5%'}} onSubmit={handleSubmit}>
+            <form style={{margin:'5%'}} onSubmit={''}>
                 <input type="text" name="id" placeholder="Warehouse id" value={warehouseFormData.id} onChange={handleChange} />
                 <input type="text" name="name" placeholder="Warehouse name" value={warehouseFormData.name} onChange={handleChange}
                 style={{visibility:formVisible()}}/>
@@ -169,8 +166,9 @@ function Warehouse() {
             <button onClick={handleDelete}>DELETE</button>
             <button onClick={handlePut}>PUT</button>
             <div style={{ margin: '5%', }}>
-                {<WarehouseTable warehouses={warehouseTiedot} getData={handleGet} editData={handlePut} />}
-                {<WarehouseTable warehouses={warehouseTiedot} getData={handleGet} editData={handlePut} />}
+                {<WarehouseTable warehouses={warehouseTiedot} getData={handleGet}
+                addData={handlePost} editData={handlePut} />}
+                {<WarehouseTable warehouses={warehouseTiedot} />}
             </div>
         </div>
     );
