@@ -50,6 +50,16 @@ function WarehouseTable(props) {
         props.getData();
     }
 
+    const handleDeleteRow = async () => {
+        if (window.confirm('Are you sure you wish to delete ?')) {
+            console.log(rows.filter(row => apiRef.current.isRowSelected(row.id))[0]);
+            console.log('deleteData');
+            await props.deleteData(rows.filter(row => apiRef.current.isRowSelected(row.id))[0]);
+            console.log('getData');
+            props.getData();
+        }
+    }
+
     return (
         <div>
             <DataGrid rows={rows} columns={columns}
@@ -58,7 +68,9 @@ function WarehouseTable(props) {
             processRowUpdate={(updatedRow, originalRow) => handleUpdate(updatedRow, originalRow)}
             onProcessRowUpdateError={(error) => console.log(error)}
             />
-            <Button onClick={handleAddRow}>add row</Button>
+            <Button style={{marginRight: '5%'}} onClick={props.getData}>refresh</Button>
+            <Button style={{marginRight: '5%'}} onClick={handleAddRow}>add new row</Button>
+            <Button onClick={handleDeleteRow}>delete selected row</Button>
         </div>
     )
 }
