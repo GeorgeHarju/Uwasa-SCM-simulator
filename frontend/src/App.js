@@ -1,4 +1,4 @@
-import Warehouse from './Warehouse.js'
+import Warehouse from './components/Warehouse.js'
 
 function App() {
   return (

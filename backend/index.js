@@ -7,7 +7,10 @@ const cors = require('cors');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-const warehouses = [];
+const warehouses = [
+    {id: 1, name: 'Dresden', latitude: 10, longitude: 20, processing_cost: 500, max_hr_cap: 10000, sla: 3 },
+    {id: 2, name: 'Warsaw', latitude: 25, longitude: 55, processing_cost: 750, max_hr_cap: 20000, sla: 5 },
+];
 
 // POST request, jossa lähetetty data tallennetaan newWarehouse objektiin
 app.post('/', jsonParser, (req, res) => {
