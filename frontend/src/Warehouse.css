@@ -1,0 +1,26 @@
+/*html, body, div {
+    height: 100%;
+}*/
+
+/*
+    background: rgb(223, 228, 220);
+    green: rgb(0, 128, 0);
+    border: rgb(169, 172, 168);
+*/
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-evenly;
+    width: 50%;
+    
+}
+
+.cbox {
+    height: 30px;
+    width: 30px;
+}
+
+.label {
+    text-align: center;
+}
